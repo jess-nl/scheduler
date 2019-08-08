@@ -1,16 +1,18 @@
 import React from "react";
 import classnames from "classnames";
 
-import Empty from "components/Appointment/Empty";
-import Show from "components/Appointment/Show";
-import { useVisualMode } from "hooks/useVisualMode";
-
 import "components/Appointment/styles.scss";
 
-const EMPTY = "EMPTY";
-const SHOW = "SHOW";
+import Empty from "components/Appointment/Empty";
+import Show from "components/Appointment/Show";
+import Form from "components/Appointment/Form";
+import { useVisualMode } from "hooks/useVisualMode";
 
 export default function Appointment(props) {
+  const EMPTY = "EMPTY";
+  const SHOW = "SHOW";
+  const CREATE = "CREATE";
+
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -22,7 +24,7 @@ export default function Appointment(props) {
         <hr className="appointment__separator" />
       </header>
 
-      {mode === EMPTY && <Empty />}
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
         <Show
           student={props.interview.student}
@@ -31,6 +33,8 @@ export default function Appointment(props) {
           onDelete={props.onDelete}
         />
       )}
+      {mode === CREATE && (<Form interviewers={[]} onCancel={() => back()}/>)}
+
     </article>
   );
 }
