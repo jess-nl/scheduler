@@ -9,3 +9,20 @@ export default function getAppointmentsForDay(state, day) {
   }
   return result.map(id => state.appointments[id]);
 }
+
+export function getInterview(state, interview) {
+  if (interview === null) {
+    return null;
+  }
+
+  let key = interview.interviewer;
+  let bookedInterview = {
+    student: interview.student,
+    interviewer: {
+      id: state.interviewers[key].id,
+      name: state.interviewers[key].name,
+      avatar: state.interviewers[key].avatar
+    }
+  };
+  return bookedInterview;
+}
