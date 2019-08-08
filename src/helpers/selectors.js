@@ -26,3 +26,15 @@ export function getInterview(state, interview) {
   };
   return bookedInterview;
 }
+
+export function getInterviewersForDay(state, day) {
+  const days = state.days;
+
+  let result = [];
+  for (const eachDay of days) {
+    if (eachDay.name === day) {
+      result = eachDay.interviewers;
+    }
+  }
+  return result.map(id => state.interviewers[id]);
+}
