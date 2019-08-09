@@ -80,7 +80,7 @@ export default function Application(props) {
     };
     const appointments = {
       ...state.appointments,
-      [id]: appointment
+      appointment
     };
     return axios
     .delete(`/api/appointments/${id}`)
