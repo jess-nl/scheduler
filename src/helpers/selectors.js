@@ -11,7 +11,7 @@ export default function getAppointmentsForDay(state, day) {
 }
 
 export function getInterview(state, interview) {
-  if (interview === null) {
+  if (!interview) {
     return null;
   }
 
