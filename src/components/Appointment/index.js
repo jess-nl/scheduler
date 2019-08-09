@@ -37,9 +37,10 @@ export default function Appointment(props) {
     // transition(CONFIRM).then(() => transition(EMPTY))
     // transition(EMPTY); //temporary
 
-    console.log("removing!!")
+    // console.log("removing!!")
     props.removeInterview(id).then(() =>  { 
       transition(EMPTY);
+      
      console.log("deleted!")
     });
   
@@ -52,9 +53,8 @@ export default function Appointment(props) {
         <hr className="appointment__separator" />
       </header>
 
-      {/* {mode === CONFIRM && <Confirm onConfirm={() => {console.log("confirm~~~~~~~~!"); transition(EMPTY)} } onCancel={() => transition(SHOW)} />} */}
 
-
+      {mode === CONFIRM && <Confirm onConfirm={()=>remove(props.id)} onCancel={() => transition(SHOW)} />}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
         <Show
@@ -63,8 +63,8 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onEdit={props.onEdit}
-          // onDelete={() => transition(CONFIRM)}
-          onDelete={remove}
+          onDelete={() => transition(CONFIRM)}
+          // onDelete={remove}
           // onDelete={() => remove(props.id)}
           id={props.id}
         />
