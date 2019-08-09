@@ -19,7 +19,7 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  function save(name, interviewer) {
+  const save = function(name, interviewer) {
     const interviewMadeFromChildFormAndToBePassedToParent = {
       student: name,
       interviewer
@@ -28,7 +28,11 @@ export default function Appointment(props) {
     props
       .bookInterview(props.id, interviewMadeFromChildFormAndToBePassedToParent)
       .then(() => transition(SHOW));
-  }
+  };
+
+  const remove = function(id) {
+    props.removeInterview(id).then(() => transition(EMPTY));
+  };
 
   return (
     <article className="appointment">
@@ -40,10 +44,13 @@ export default function Appointment(props) {
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
         <Show
+          // student={props.interview.student && props.interview}
+          // interviewer={props.interview.interviewer && props.interview.interviewer}
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onEdit={props.onEdit}
-          onDelete={props.onDelete}
+          onDelete={remove}
+          id={props.id}
         />
       )}
       {mode === CREATE && (

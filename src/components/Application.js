@@ -46,7 +46,7 @@ export default function Application(props) {
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
 
-  function bookInterview(id, interview) {
+  const bookInterview = function(id, interview) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -70,7 +70,30 @@ export default function Application(props) {
         console.log(err);
         setError(`Error, ${err.message}`);
       });
-  }
+  };
+
+  const removeInterview = id => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    return axios
+      .delete(`http://localhost:3001/api/appointments/${id}`)
+      .then(() => {
+        setState(state => ({
+          ...state,
+          appointments
+        }));
+      })
+      .catch(err => {
+        console.log(err);
+        setError(`Error, ${err.message}`);
+      });
+  };
 
   const schedule = appointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
@@ -82,6 +105,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        removeInterview={removeInterview}
       />
     );
   });
@@ -107,7 +131,10 @@ export default function Application(props) {
           alt="Lighthouse Labs"
         />
       </section>
-      <section className="schedule">{schedule}</section>
+      <section className="schedule">
+        {schedule}
+        <Appointment key="last" time="5pm" />
+      </section>
     </main>
   );
 }
