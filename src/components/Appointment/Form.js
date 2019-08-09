@@ -9,6 +9,7 @@ import "components/Appointment/styles.scss";
 export default function Form(props) {
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  console.log("name & interviewer:", name, interviewer)
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -28,7 +29,7 @@ export default function Form(props) {
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={props.onCancel}>Cancel</Button>
-          <Button confirm onClick={props.onSave}>Save</Button>
+          <Button onClick={event => props.onSave(name, interviewer)} confirm >Save</Button>
         </section>
       </section>
     </main>

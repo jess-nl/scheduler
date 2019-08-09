@@ -5,6 +5,7 @@ import "components/Appointment/styles.scss";
 
 import Empty from "components/Appointment/Empty";
 import Show from "components/Appointment/Show";
+import Status from "components/Appointment/Status";
 import Form from "components/Appointment/Form";
 import { useVisualMode } from "hooks/useVisualMode";
 
@@ -12,10 +13,22 @@ export default function Appointment(props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
+  const STATUS = "STATUS";
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
+
+  function save(name, interviewer) {
+    const interviewMadeFromChildFormAndToBePassedToParent = {
+      student: name,
+      interviewer
+    };
+    transition(STATUS);
+    props
+      .bookInterview(props.id, interviewMadeFromChildFormAndToBePassedToParent)
+      .then(() => transition(SHOW));
+  }
 
   return (
     <article className="appointment">
@@ -33,8 +46,14 @@ export default function Appointment(props) {
           onDelete={props.onDelete}
         />
       )}
-      {mode === CREATE && (<Form interviewers={props.interviewers} onCancel={() => back()}/>)}
-
+      {mode === CREATE && (
+        <Form
+          interviewers={props.interviewers}
+          onSave={save}
+          onCancel={() => back()}
+        />
+      )}
+      {mode === STATUS && <Status />}
     </article>
   );
 }
