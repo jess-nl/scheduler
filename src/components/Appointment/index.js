@@ -7,6 +7,7 @@ import Empty from "components/Appointment/Empty";
 import Show from "components/Appointment/Show";
 import Status from "components/Appointment/Status";
 import Form from "components/Appointment/Form";
+import Confirm from "components/Appointment/Confirm";
 import { useVisualMode } from "hooks/useVisualMode";
 
 export default function Appointment(props) {
@@ -14,6 +15,7 @@ export default function Appointment(props) {
   const SHOW = "SHOW";
   const CREATE = "CREATE";
   const STATUS = "STATUS";
+  const CONFIRM = "CONFIRM";
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
@@ -31,7 +33,11 @@ export default function Appointment(props) {
   };
 
   const remove = function(id) {
-    props.removeInterview(id).then(() => transition(EMPTY));
+    console.log("removing!!")
+    props.removeInterview(id).then(() =>  { 
+      transition(EMPTY);
+     console.log("deleted!")});
+  
   };
 
   return (
@@ -50,6 +56,7 @@ export default function Appointment(props) {
           interviewer={props.interview.interviewer}
           onEdit={props.onEdit}
           onDelete={remove}
+          // onDelete={() => remove(props.id)}
           id={props.id}
         />
       )}

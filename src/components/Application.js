@@ -59,7 +59,7 @@ export default function Application(props) {
     console.log("apppointments:", appointments);
 
     return axios
-      .put(`http://localhost:3001/api/appointments/${id}`, appointment)
+      .put(`/api/appointments/${id}`, appointment)
       .then(() => {
         setState(state => ({
           ...state,
@@ -73,6 +73,7 @@ export default function Application(props) {
   };
 
   const removeInterview = id => {
+    console.log("id------------:", id)
     const appointment = {
       ...state.appointments[id],
       interview: null
@@ -82,13 +83,15 @@ export default function Application(props) {
       [id]: appointment
     };
     return axios
-      .delete(`http://localhost:3001/api/appointments/${id}`)
-      .then(() => {
-        setState(state => ({
-          ...state,
-          appointments
-        }));
-      })
+    .delete(`/api/appointments/${id}`)
+    .then((res) => {
+      console.log("appointments!!====:", appointments)
+      setState({
+        ...state,
+        appointments,
+      });
+      console.log("STATE----------:", state)
+    })
       .catch(err => {
         console.log(err);
         setError(`Error, ${err.message}`);
