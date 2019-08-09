@@ -31,19 +31,11 @@ export default function Appointment(props) {
       .bookInterview(props.id, interviewMadeFromChildFormAndToBePassedToParent)
       .then(() => transition(SHOW));
   };
-  
-  // transition(CONFIRM)
-  const remove = function(id) {
-    // transition(CONFIRM).then(() => transition(EMPTY))
-    // transition(EMPTY); //temporary
 
-    // console.log("removing!!")
-    props.removeInterview(id).then(() =>  { 
+  const remove = function(id) {
+    props.removeInterview(id).then(() => {
       transition(EMPTY);
-      
-     console.log("deleted!")
     });
-  
   };
 
   return (
@@ -53,19 +45,19 @@ export default function Appointment(props) {
         <hr className="appointment__separator" />
       </header>
 
-
-      {mode === CONFIRM && <Confirm onConfirm={()=>remove(props.id)} onCancel={() => transition(SHOW)} />}
+      {mode === CONFIRM && (
+        <Confirm
+          onConfirm={() => remove(props.id)}
+          onCancel={() => transition(SHOW)}
+        />
+      )}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
         <Show
-          // student={props.interview.student && props.interview}
-          // interviewer={props.interview.interviewer && props.interview.interviewer}
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onEdit={props.onEdit}
           onDelete={() => transition(CONFIRM)}
-          // onDelete={remove}
-          // onDelete={() => remove(props.id)}
           id={props.id}
         />
       )}

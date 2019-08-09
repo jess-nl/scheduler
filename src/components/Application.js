@@ -29,7 +29,6 @@ export default function Application(props) {
       axios.get("http://localhost:3001/api/interviewers")
     ])
       .then(result => {
-        console.log("result:", result);
         setState(prev => ({
           ...prev,
           days: result[0].data,
@@ -73,7 +72,6 @@ export default function Application(props) {
   };
 
   const removeInterview = id => {
-    console.log("id------------:", id)
     const appointment = {
       ...state.appointments[id],
       interview: null
@@ -83,15 +81,13 @@ export default function Application(props) {
       appointment
     };
     return axios
-    .delete(`/api/appointments/${id}`)
-    .then((res) => {
-      console.log("appointments!!====:", appointments)
-      setState({
-        ...state,
-        appointments,
-      });
-      console.log("STATE----------:", state)
-    })
+      .delete(`/api/appointments/${id}`)
+      .then(res => {
+        setState({
+          ...state,
+          appointments
+        });
+      })
       .catch(err => {
         console.log(err);
         setError(`Error, ${err.message}`);
