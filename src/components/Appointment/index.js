@@ -23,21 +23,9 @@ export default function Appointment(props) {
   const ERROR_SAVE = "ERROR_SAVE";
   const DELETING = "DELETING";
 
-
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-
-  // const save = function(name, interviewer) {
-  //   const interview = {
-  //     student: name,
-  //     interviewer
-  //   };
-  //   transition(STATUS);
-  //   props
-  //     .bookInterview(props.id, interview)
-  //     .then(() => transition(SHOW));
-  // };
 
   const save = function(name, interviewer) {
     const interview = {
@@ -47,23 +35,26 @@ export default function Appointment(props) {
     transition(SAVING);
     props
       .bookInterview(props.id, interview)
-      .then(() => {return transition(SHOW)})
-      .catch(error =>{return transition(ERROR_SAVE, true)});
-  }
+      .then(() => {
+        return transition(SHOW);
+      })
+      .catch(error => {
+        return transition(ERROR_SAVE, true);
+      });
+  };
 
   const destroy = function(event) {
     transition(DELETING, true);
     props
-     .removeInterview(props.id)
-     .then(() =>{ transition(EMPTY)})
-     .catch(error =>{ transition(ERROR_DELETE, true)});
-   }
-  // const remove = function(id) {
-  //   props.removeInterview(id).then(() => {
-  //     transition(EMPTY);
-  //   });
-  // };
-   console.log(mode)
+      .removeInterview(props.id)
+      .then(() => {
+        transition(EMPTY);
+      })
+      .catch(error => {
+        transition(ERROR_DELETE, true);
+      });
+  };
+
   return (
     <article className="appointment">
       <header className="appointment__time">
@@ -81,8 +72,8 @@ export default function Appointment(props) {
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === ERROR_DELETE && (
         <Error
-        message="Could not delete appointment."
-        onClose={() => transition(CONFIRM)}
+          message="Could not delete appointment."
+          onClose={() => transition(CONFIRM)}
         />
       )}
       {mode === SHOW && (

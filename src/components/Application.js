@@ -80,16 +80,13 @@ export default function Application(props) {
       ...state.appointments,
       appointment
     };
-    return axios
-      .delete(`/api/appointments/${id}`)
-      .then(res => {
-        setState({
-          ...state,
-          appointments
-        });
-      })
+    return axios.delete(`/api/appointments/${id}`).then(res => {
+      setState({
+        ...state,
+        appointments
+      });
+    });
   };
-
 
   const schedule = appointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
