@@ -15,7 +15,6 @@ export default function Appointment(props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
-  const STATUS = "STATUS";
   const CONFIRM = "CONFIRM";
   const EDIT = "EDIT";
 
@@ -111,7 +110,8 @@ export default function Appointment(props) {
           onCancel={() => back()}
         />
       )}
-      {mode === STATUS && <Status />}
+      {mode === SAVING && <Status message="Saving" />}
+      {mode === DELETING && <Status message="Deleting" />}
     </article>
   );
 }
