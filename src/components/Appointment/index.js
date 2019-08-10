@@ -48,8 +48,8 @@ export default function Appointment(props) {
     transition(SAVING);
     props
       .bookInterview(props.id, interview)
-      .then(() => transition(SHOW))
-      .catch(error => transition(ERROR_SAVE, true));
+      .then(() => {return transition(SHOW)})
+      .catch(error =>{return transition(ERROR_SAVE, true)});
   }
 
   const destroy = function(event) {
@@ -64,7 +64,7 @@ export default function Appointment(props) {
   //     transition(EMPTY);
   //   });
   // };
-
+   console.log(mode)
   return (
     <article className="appointment">
       <header className="appointment__time">
@@ -99,7 +99,7 @@ export default function Appointment(props) {
         <Form
           interviewers={props.interviewers}
           onSave={save}
-          onCancel={() => back()}
+          onCancel={back()}
         />
       )}
       {mode === EDIT && (

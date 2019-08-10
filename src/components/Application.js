@@ -83,7 +83,6 @@ export default function Application(props) {
     return axios
       .delete(`/api/appointments/${id}`)
       .then(res => {
-        debugger
         setState({
           ...state,
           appointments
