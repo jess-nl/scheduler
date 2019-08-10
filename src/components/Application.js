@@ -83,16 +83,14 @@ export default function Application(props) {
     return axios
       .delete(`/api/appointments/${id}`)
       .then(res => {
+        debugger
         setState({
           ...state,
           appointments
         });
       })
-      .catch(err => {
-        console.log(err);
-        setError(`Error, ${err.message}`);
-      });
   };
+
 
   const schedule = appointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
