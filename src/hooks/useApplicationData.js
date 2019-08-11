@@ -6,8 +6,8 @@ export function useApplicationData() {
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 
   const reducer = function(state, action) {
-    const { day, days, appointments, interviewers, id, interview } = action;
-    switch (action) {
+    const { day, days, appointments, interviewers } = action;
+    switch (action.type) {
       case SET_DAY:
         return { ...state, day };
       case SET_APPLICATION_DATA:
@@ -28,8 +28,6 @@ export function useApplicationData() {
 
   const setDay = day => dispatch({ type: SET_DAY, day });
 
-  const [error, setError] = dispatch(null);
-
   useEffect(() => {
     Promise.all([
       axios.get("http://localhost:3001/api/days"),
@@ -46,7 +44,6 @@ export function useApplicationData() {
       })
       .catch(err => {
         console.log(err);
-        setError(`Error, ${err.message}`);
       });
   }, []);
 
@@ -70,7 +67,6 @@ export function useApplicationData() {
       })
       .catch(err => {
         console.log(err);
-        setError(`Error, ${err.message}`);
       });
   };
 
@@ -91,6 +87,7 @@ export function useApplicationData() {
       });
     });
   };
+
   return {
     state,
     setDay,
