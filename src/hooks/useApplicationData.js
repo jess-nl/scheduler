@@ -1,18 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import axios from "axios";
 
 export function useApplicationData() {
-  const [state, setState] = useState({
+  const SET_DAY = "SET_DAY";
+  const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
+
+  const reducer = function(state, action) {
+    const { day, days, appointments, interviewers, id, interview } = action;
+    switch (action) {
+      case SET_DAY:
+        return { ...state, day };
+      case SET_APPLICATION_DATA:
+        return { ...state, days, appointments, interviewers };
+      default:
+        throw new Error(
+          `Tried to reduce with unsupported action type: ${action.type}`
+        );
+    }
+  };
+
+  const [state, dispatch] = useReducer(reducer, {
     day: "Monday",
     days: [],
     appointments: {},
     interviewers: null
   });
 
-  const setDay = day => setState({ ...state, day });
-  const setDays = days => setState({ ...state, days });
+  const setDay = day => dispatch({ type: SET_DAY, day });
 
-  const [error, setError] = useState(null);
+  const [error, setError] = dispatch(null);
 
   useEffect(() => {
     Promise.all([
@@ -21,12 +37,12 @@ export function useApplicationData() {
       axios.get("http://localhost:3001/api/interviewers")
     ])
       .then(result => {
-        setState(prev => ({
-          ...prev,
+        dispatch({
+          type: SET_APPLICATION_DATA,
           days: result[0].data,
           appointments: result[1].data,
           interviewers: result[2].data
-        }));
+        });
       })
       .catch(err => {
         console.log(err);
@@ -44,12 +60,10 @@ export function useApplicationData() {
       [id]: appointment
     };
 
-    console.log("apppointments:", appointments);
-
     return axios
       .put(`/api/appointments/${id}`, appointment)
       .then(() => {
-        setState(state => ({
+        dispatch(state => ({
           ...state,
           appointments
         }));
@@ -69,8 +83,9 @@ export function useApplicationData() {
       ...state.appointments,
       appointment
     };
+
     return axios.delete(`/api/appointments/${id}`).then(res => {
-      setState({
+      dispatch({
         ...state,
         appointments
       });
