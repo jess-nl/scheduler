@@ -4,14 +4,26 @@ import axios from "axios";
 export function useApplicationData() {
   const SET_DAY = "SET_DAY";
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
+  const SET_INTERVIEW = "SET_INTERVIEW";
 
   const reducer = function(state, action) {
-    const { day, days, appointments, interviewers } = action;
+    const { day, days, appointments, interviewers, id, interview } = action;
     switch (action.type) {
       case SET_DAY:
         return { ...state, day };
       case SET_APPLICATION_DATA:
         return { ...state, days, appointments, interviewers };
+      case SET_INTERVIEW: {
+        const appointment = {
+          ...state.appointments[id],
+          interview: { ...interview }
+        };
+        const appointments = {
+          ...state.appointments,
+          [id]: appointment
+        };
+        return { ...state, appointments };
+      }
       default:
         throw new Error(
           `Tried to reduce with unsupported action type: ${action.type}`
@@ -48,22 +60,11 @@ export function useApplicationData() {
   }, []);
 
   const bookInterview = function(id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-
+    console.log("interview----------------------~~~~~~:", interview);
     return axios
-      .put(`/api/appointments/${id}`, appointment)
+      .put(`/api/appointments/${id}`, interview)
       .then(() => {
-        dispatch(state => ({
-          ...state,
-          appointments
-        }));
+        dispatch({ type: SET_INTERVIEW, id, interview });
       })
       .catch(err => {
         console.log(err);
@@ -71,20 +72,8 @@ export function useApplicationData() {
   };
 
   const removeInterview = id => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null
-    };
-    const appointments = {
-      ...state.appointments,
-      appointment
-    };
-
     return axios.delete(`/api/appointments/${id}`).then(res => {
-      dispatch({
-        ...state,
-        appointments
-      });
+      dispatch({ type: SET_INTERVIEW, id, interview: null });
     });
   };
 
