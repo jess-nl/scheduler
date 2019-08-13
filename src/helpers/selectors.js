@@ -36,5 +36,6 @@ export function getInterviewersForDay(state, day) {
       result = eachDay.interviewers;
     }
   }
-  return result.map(id => state.interviewers[id]);
+  const output = result.map(id => state.interviewers[id]);
+  return output;
 }
