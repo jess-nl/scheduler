@@ -44,7 +44,6 @@ export default function Appointment(props) {
   };
 
   const destroy = function(id, dayFromForm) {
-    console.log("dayFromForm DESTROY----------~~~~~!", dayFromForm)
     transition(DELETING, true);
     props
       .removeInterview(id, dayFromForm)
@@ -68,7 +67,6 @@ export default function Appointment(props) {
           message="Delete the appointment?"
           onConfirm={destroy}
           id={props.id}
-          // onConfirm={() => destroy(props.id)}
           onCancel={() => transition(SHOW)}
           day={props.day}
         />

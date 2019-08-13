@@ -7,7 +7,16 @@ export function useApplicationData() {
   const SET_INTERVIEW = "SET_INTERVIEW";
 
   const reducer = function(state, action) {
-    const { day, days, appointments, interviewers, id, interview, dayFromForm} = action;
+    const {
+      day,
+      days,
+      appointments,
+      interviewers,
+      id,
+      interview,
+      dayFromForm
+    } = action;
+
     switch (action.type) {
       case SET_DAY:
         return { ...state, day };
@@ -22,20 +31,16 @@ export function useApplicationData() {
           ...state.appointments,
           [id]: appointment
         };
-        console.log("before conditional---------------~~~~!!", dayFromForm)
 
         const days = state.days.map(dayObj => {
-
           if (dayObj.name === dayFromForm && interview) {
-            return {...dayObj, spots: dayObj.spots - 1}
+            return { ...dayObj, spots: dayObj.spots - 1 };
           } else if (dayObj.name === dayFromForm && action.interview === null) {
-            console.log("when removed---------------~~~~!!", dayFromForm)
-            return {...dayObj, spots: dayObj.spots + 1}
+            return { ...dayObj, spots: dayObj.spots + 1 };
           } else {
-            return {...dayObj}
+            return { ...dayObj };
           }
-
-        })
+        });
 
         return { ...state, appointments, days };
       }
@@ -75,10 +80,8 @@ export function useApplicationData() {
   }, []);
 
   const bookInterview = function(id, interview, dayFromForm) {
-    console.log("interview----------------------~~~~~~:", interview);
-    console.log("dayFromForm----------------------~~~~~~:", dayFromForm);
     return axios
-      .put(`/api/appointments/${id}`, {interview})
+      .put(`/api/appointments/${id}`, { interview })
       .then(() => {
         dispatch({ type: SET_INTERVIEW, id, interview, dayFromForm });
       })

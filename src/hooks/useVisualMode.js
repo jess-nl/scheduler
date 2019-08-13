@@ -3,7 +3,6 @@ import React, { useState } from "react";
 export function useVisualMode(param) {
   const [mode, setMode] = useState(param);
   const [history, setHistory] = useState([param]);
-  // console.log("history-----------~~!:", history);
 
   const transition = (change, replace) => {
     if (replace) {
