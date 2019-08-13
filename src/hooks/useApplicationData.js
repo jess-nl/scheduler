@@ -7,7 +7,7 @@ export function useApplicationData() {
   const SET_INTERVIEW = "SET_INTERVIEW";
 
   const reducer = function(state, action) {
-    const { day, days, appointments, interviewers, id, interview } = action;
+    const { day, days, appointments, interviewers, id, interview, dayFromForm} = action;
     switch (action.type) {
       case SET_DAY:
         return { ...state, day };
@@ -16,13 +16,28 @@ export function useApplicationData() {
       case SET_INTERVIEW: {
         const appointment = {
           ...state.appointments[id],
-          interview: { ...interview }
+          interview: (interview && { ...interview }) || null
         };
         const appointments = {
           ...state.appointments,
           [id]: appointment
         };
-        return { ...state, appointments };
+        console.log("before conditional---------------~~~~!!", dayFromForm)
+
+        const days = state.days.map(dayObj => {
+
+          if (dayObj.name === dayFromForm && interview) {
+            return {...dayObj, spots: dayObj.spots - 1}
+          } else if (dayObj.name === dayFromForm && action.interview === null) {
+            console.log("when removed---------------~~~~!!", dayFromForm)
+            return {...dayObj, spots: dayObj.spots + 1}
+          } else {
+            return {...dayObj}
+          }
+
+        })
+
+        return { ...state, appointments, days };
       }
       default:
         throw new Error(
@@ -59,21 +74,22 @@ export function useApplicationData() {
       });
   }, []);
 
-  const bookInterview = function(id, interview) {
+  const bookInterview = function(id, interview, dayFromForm) {
     console.log("interview----------------------~~~~~~:", interview);
+    console.log("dayFromForm----------------------~~~~~~:", dayFromForm);
     return axios
-      .put(`/api/appointments/${id}`, interview)
+      .put(`/api/appointments/${id}`, {interview})
       .then(() => {
-        dispatch({ type: SET_INTERVIEW, id, interview });
+        dispatch({ type: SET_INTERVIEW, id, interview, dayFromForm });
       })
       .catch(err => {
         console.log(err);
       });
   };
 
-  const removeInterview = id => {
+  const removeInterview = (id, dayFromForm) => {
     return axios.delete(`/api/appointments/${id}`).then(res => {
-      dispatch({ type: SET_INTERVIEW, id, interview: null });
+      dispatch({ type: SET_INTERVIEW, id, interview: null, dayFromForm });
     });
   };
 

@@ -34,7 +34,7 @@ export default function Appointment(props) {
     };
     transition(SAVING);
     props
-      .bookInterview(props.id, interview)
+      .bookInterview(props.id, interview, props.day)
       .then(() => {
         return transition(SHOW);
       })
@@ -43,10 +43,11 @@ export default function Appointment(props) {
       });
   };
 
-  const destroy = function(event) {
+  const destroy = function(id, dayFromForm) {
+    console.log("dayFromForm DESTROY----------~~~~~!", dayFromForm)
     transition(DELETING, true);
     props
-      .removeInterview(props.id)
+      .removeInterview(id, dayFromForm)
       .then(() => {
         transition(EMPTY);
       })
@@ -65,8 +66,11 @@ export default function Appointment(props) {
       {mode === CONFIRM && (
         <Confirm
           message="Delete the appointment?"
-          onConfirm={() => destroy(props.id)}
+          onConfirm={destroy}
+          id={props.id}
+          // onConfirm={() => destroy(props.id)}
           onCancel={() => transition(SHOW)}
+          day={props.day}
         />
       )}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
@@ -83,13 +87,14 @@ export default function Appointment(props) {
           onEdit={() => transition(EDIT)}
           onDelete={() => transition(CONFIRM)}
           id={props.id}
+          day={props.day}
         />
       )}
       {mode === CREATE && (
         <Form
           interviewers={props.interviewers}
           onSave={save}
-          onCancel={back()}
+          onCancel={() => back()}
         />
       )}
       {mode === EDIT && (
@@ -99,6 +104,7 @@ export default function Appointment(props) {
           interviewers={props.interviewers}
           onSave={save}
           onCancel={() => back()}
+          day={props.day}
         />
       )}
       {mode === SAVING && <Status message="Saving" />}
