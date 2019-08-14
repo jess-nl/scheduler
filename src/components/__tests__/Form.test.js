@@ -46,7 +46,7 @@ describe("Form", () => {
   it("can successfully save after trying to submit an empty student name", () => {
     const onSave = jest.fn();
     const { getByText, getByPlaceholderText, queryByText } = render(
-      <Form interviewers={interviewers} onSave={onSave} />
+      <Form interviewers={interviewers} onSave={onSave} day="Monday" />
     );
 
     fireEvent.click(getByText("Save"));
@@ -74,6 +74,7 @@ describe("Form", () => {
         name="Lydia Mill-Jones"
         onSave={jest.fn()}
         onCancel={onCancel}
+        day="Monday"
       />
     );
 
