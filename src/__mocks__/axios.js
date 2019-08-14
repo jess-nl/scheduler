@@ -87,5 +87,11 @@ export default {
     return Promise.resolve({
       url
     });
+  }),
+
+  delete: jest.fn(url => {
+    return Promise.resolve({
+      url
+    });
   })
 };
