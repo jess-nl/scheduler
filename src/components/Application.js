@@ -3,13 +3,11 @@ import "components/Application.scss";
 
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
-
+import { useApplicationData } from "hooks/useApplicationData";
 import getAppointmentsForDay, {
   getInterviewersForDay,
   getInterview
 } from "helpers/selectors";
-
-import { useApplicationData } from "hooks/useApplicationData";
 
 export default function Application(props) {
   const {
