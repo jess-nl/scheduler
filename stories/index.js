@@ -51,24 +51,23 @@ const days = [
   {
     id: 1,
     name: "Monday",
-    spots: 2,
+    spots: 2
   },
   {
     id: 2,
     name: "Tuesday",
-    spots: 5,
+    spots: 5
   },
   {
     id: 3,
     name: "Wednesday",
-    spots: 0,
-  },
+    spots: 0
+  }
 ];
-
 
 storiesOf("DayList", module)
   .addParameters({
-    backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
+    backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
   })
   .add("Monday", () => (
     <DayList days={days} day={"Monday"} setDay={action("setDay")} />
@@ -77,12 +76,12 @@ storiesOf("DayList", module)
     <DayList days={days} day={"Tuesday"} setDay={action("setDay")} />
   ));
 
-  const interviewer = {
-    id: 1,
-    name: "Sylvia Palmer",
-    avatar: "https://i.imgur.com/LpaY82x.png"
-  };
-  
+const interviewer = {
+  id: 1,
+  name: "Sylvia Palmer",
+  avatar: "https://i.imgur.com/LpaY82x.png"
+};
+
 storiesOf("InterviewerListItem", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
@@ -137,7 +136,6 @@ storiesOf("InterviewerList", module)
     />
   ));
 
-
 storiesOf("Appointment", module)
   .addParameters({
     backgrounds: [{ name: "white", value: "#fff", default: true }]
@@ -163,36 +161,41 @@ storiesOf("Appointment", module)
   ))
   .add("Header", () => <Header time="12pm" />)
   .add("Empty", () => <Empty onAdd={action("onAdd")} />)
-  .add("Show", () => 
-    <Show 
+  .add("Show", () => (
+    <Show
       student="Lydia Miller-Jones"
       interviewer={interviewers[0]}
       onEdit={action("onEdit")}
       onDelete={action("onDelete")}
-    />)
-  .add("Confirm", () => 
-    <Confirm 
+    />
+  ))
+  .add("Confirm", () => (
+    <Confirm
       message="Delete the appointment?"
       onConfirm={action("onConfirm")}
       onCancel={action("onCancel")}
-    />)
+    />
+  ))
   .add("Deleting", () => <Status message="Deleting" />)
-  .add("Error", () => 
-    <Error 
+  .add("Error", () => (
+    <Error
       message="Could not delete appointment."
       onClose={action("onClose")}
-    />)
-  .add("Create", () => 
-  <Form 
-    interviewers={interviewers}
-    onSave={action("onSave")}
-    onCancel={action("onCancel")}
-  />)
-  .add("Edit", () => 
-    <Form 
+    />
+  ))
+  .add("Create", () => (
+    <Form
+      interviewers={interviewers}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
+    />
+  ))
+  .add("Edit", () => (
+    <Form
       interviewers={interviewers}
       name="Jess"
       interview={2}
       onSave={action("onSave")}
       onCancel={action("onCancel")}
-    />);
+    />
+  ));

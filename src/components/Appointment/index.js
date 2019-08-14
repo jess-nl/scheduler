@@ -9,6 +9,8 @@ import Confirm from "components/Appointment/Confirm";
 import Error from "components/Appointment/Error";
 import { useVisualMode } from "hooks/useVisualMode";
 
+/* Appointment component transitions between different modes according to the user's interaction and displays them with received data from the user/database. */
+
 export default function Appointment(props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
@@ -36,7 +38,7 @@ export default function Appointment(props) {
       .then(() => {
         return transition(SHOW);
       })
-      .catch(error => {
+      .catch(() => {
         return transition(ERROR_SAVE, true);
       });
   };
@@ -48,7 +50,7 @@ export default function Appointment(props) {
       .then(() => {
         transition(EMPTY);
       })
-      .catch(error => {
+      .catch(() => {
         transition(ERROR_DELETE, true);
       });
   };

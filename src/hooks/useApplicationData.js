@@ -49,7 +49,7 @@ export function useApplicationData() {
   };
 
   const removeInterview = (id, dayFromForm) => {
-    return axios.delete(`/api/appointments/${id}`).then(res => {
+    return axios.delete(`/api/appointments/${id}`).then(() => {
       dispatch({ type: SET_INTERVIEW, id, interview: null, dayFromForm });
     });
   };

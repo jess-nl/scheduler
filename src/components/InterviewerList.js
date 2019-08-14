@@ -3,16 +3,14 @@ import PropTypes from "prop-types";
 import InterviewerListItem from "components/InterviewerListItem";
 import "components/InterviewerList.scss";
 
-InterviewerList.propTypes = {
-  value: PropTypes.number,
-  onChange: PropTypes.func.isRequired
-};
+/* Displays a list of interviews */
 
-export default function InterviewerList({
-  interviewers,
-  value,
-  onChange
-}) {
+export default function InterviewerList({ interviewers, value, onChange }) {
+  InterviewerList.propTypes = {
+    value: PropTypes.number,
+    onChange: PropTypes.func.isRequired
+  };
+
   const interviewList = interviewers.map(eachInterviewer => (
     <InterviewerListItem
       {...eachInterviewer}
