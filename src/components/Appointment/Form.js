@@ -13,14 +13,18 @@ export default function Form(props) {
 
   const [error, setError] = useState("");
 
-  function validate() {
+  const cancel = function() {
+    setName("");
+    setInterviewer(null);
+    props.onCancel();
+  }
+
+  const validate = function() {
     if (name === "") {
       setError("Student name cannot be blank");
       return;
     }
 
-    // Insert here: calls onCancel and resets the input field
-  
     setError("");
     props.onSave(name, interviewer, props.day);
   }
@@ -44,7 +48,7 @@ export default function Form(props) {
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button danger onClick={props.onCancel}>Cancel</Button>
+          <Button danger onClick={cancel}>Cancel</Button>
           <Button confirm onClick={validate}>Save</Button>
         </section>
       </section>

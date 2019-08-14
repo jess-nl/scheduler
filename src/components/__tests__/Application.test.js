@@ -70,9 +70,9 @@ it("loads data, cancels an interview and increases the spots remaining for Monda
   fireEvent.click(queryByAltText(appointment, "Delete"));
 
   // 4. Check that the confirmation message is shown.
-  // expect(
-  //   getByText(appointment, "Are you sure you would like to delete?")
-  // ).toBeInTheDocument();
+  expect(
+    getByText(appointment, "Delete the appointment?")
+  ).toBeInTheDocument();
 
   // 5. Click the "Confirm" button on the confirmation.
   fireEvent.click(queryByText(appointment, "Confirm"));

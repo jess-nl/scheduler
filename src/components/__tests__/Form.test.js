@@ -71,7 +71,7 @@ describe("Form", () => {
     const { getByText, getByPlaceholderText, queryByText } = render(
       <Form
         interviewers={interviewers}
-        name="Lydia Mill-Jones"
+        name="Lydia Miller-Jones"
         onSave={jest.fn()}
         onCancel={onCancel}
         day="Monday"
@@ -88,7 +88,7 @@ describe("Form", () => {
 
     expect(queryByText(/student name cannot be blank/i)).toBeNull();
 
-    expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
+    expect(getByPlaceholderText("Enter Student Name")).not.toHaveValue("Lydia Miller-Jones");
 
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
