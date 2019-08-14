@@ -11,7 +11,6 @@ InterviewerList.propTypes = {
 export default function InterviewerList({
   interviewers,
   value,
-  setInterviewer,
   onChange
 }) {
   const interviewList = interviewers.map(eachInterviewer => (
@@ -19,7 +18,7 @@ export default function InterviewerList({
       {...eachInterviewer}
       key={eachInterviewer.id}
       selected={eachInterviewer.id === value}
-      onChange={event => onChange(eachInterviewer.id)}
+      onChange={() => onChange(eachInterviewer.id)}
     />
   ));
 

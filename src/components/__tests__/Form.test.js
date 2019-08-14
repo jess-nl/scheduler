@@ -5,6 +5,8 @@ import Form from "components/Appointment/Form";
 
 afterEach(cleanup);
 
+/* These tests ensure the Form component and its features work correctly */
+
 describe("Form", () => {
   const interviewers = [
     {

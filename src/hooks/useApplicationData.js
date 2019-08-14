@@ -1,10 +1,12 @@
-import React, { useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import axios from "axios";
 import reducer, {
   SET_DAY,
   SET_APPLICATION_DATA,
   SET_INTERVIEW
 } from "reducers/application";
+
+/* useApplicationData function creates API requests to access the database; removes interviews (as null) and edits within a database. It also applies the imported reduce function from reducers/application.js to trigger a state change. */
 
 export function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {

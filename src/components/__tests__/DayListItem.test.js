@@ -4,6 +4,8 @@ import DayListItem from "components/DayListItem";
 
 afterEach(cleanup);
 
+/* These tests ensure the 'spots remaining' feature renders correctly */
+
 it("renders without crashing", () => {
   render(<DayListItem />);
 });

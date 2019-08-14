@@ -4,11 +4,11 @@ import "components/Appointment/styles.scss";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
+/* Form component is updates the state of the  */
+
 export default function Form(props) {
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
-  console.log("name & interviewer:", name, interviewer);
-
   const [error, setError] = useState("");
 
   const cancel = function() {

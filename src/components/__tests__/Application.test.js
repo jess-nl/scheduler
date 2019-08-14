@@ -16,6 +16,8 @@ import {
 
 afterEach(cleanup);
 
+/* These tests ensure the Application component and its features work correctly */
+
 it("changes the schedule when a new day is selected", async () => {
   const { getByText } = render(<Application />);
   await waitForElement(() => getByText("Monday"));

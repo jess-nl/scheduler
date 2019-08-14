@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
+/* useVisualMode function tracks the history to create, edit or cancel an interview */
 
 export function useVisualMode(param) {
   const [mode, setMode] = useState(param);
@@ -12,6 +14,8 @@ export function useVisualMode(param) {
       setMode(change);
     }
   };
+
+  /* An issue throughout the process: Originally had 'history.length - 1'. However, based on how my Appointment & Application component files are made, I had to replace it with 'history.length - 2' to get the back functionality work. */
 
   const back = () => {
     if (history.length > 1) {
