@@ -18,6 +18,8 @@ export default function Form(props) {
       setError("Student name cannot be blank");
       return;
     }
+
+    // Insert here: calls onCancel and resets the input field
   
     setError("");
     props.onSave(name, interviewer, props.day);

@@ -29,7 +29,8 @@ export default function reducer(state, action) {
       };
 
       const days = state.days.map(dayObj => {
-        if (dayObj.name === dayFromForm && interview) {
+        const edit = state.appointments[id].interview;
+        if (dayObj.name === dayFromForm && !edit) {
           return { ...dayObj, spots: dayObj.spots - 1 };
         } else if (dayObj.name === dayFromForm && action.interview === null) {
           return { ...dayObj, spots: dayObj.spots + 1 };
