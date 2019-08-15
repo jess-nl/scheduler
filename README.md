@@ -40,11 +40,11 @@ npm run storybook
 #### Book a new interview or edit an existing interview
 !["Book a new interview or edit an existing interview"](docs/appointment-create-edit.png)
 
-#### Display new interview
-!["Display new interview"](docs/appointment-new.png)
-
 #### Display status during the process of 'saving' or 'deleting' an interview
 !["Display status during the process of 'saving' or 'deleting' an interview"](docs/appointment-status-saving.png)
+
+#### Display new interview once saved
+!["Display new interview once saved"](docs/appointment-new.png)
 
 #### Display error message when HTTP response is not successfully completed
 !["Display error message when HTTP response is not successfully completed"](docs/appointment-error.png)
