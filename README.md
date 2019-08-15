@@ -37,13 +37,17 @@ npm run storybook
 
 ## Screenshots
 
-[Book a new interview or edit an existing interivew](appointment-create-edit.png)
+#### Book a new interview or edit an existing interview
+!["Book a new interview or edit an existing interview"](docs/appointment-create-edit.png)
 
-[Confirm whether or not to remove an existing interview](docs/appointment-confirm_delete.png)
+#### Display new interview
+!["Display new interview"](docs/appointment-new.png)
 
-[Display status when on process of 'saving' or 'deleting' an interview](docs/appointment-status_saving.png)
+#### Display status during the process of 'saving' or 'deleting' an interview
+!["Display status during the process of 'saving' or 'deleting' an interview"](docs/appointment-status-saving.png)
 
-[Display error message when HTTP response is not completing successfully](docs/appointment-error.png)
+#### Display error message when HTTP response is not successfully completed
+!["Display error message when HTTP response is not successfully completed"](docs/appointment-error.png)
 
 ## Dependencies
 
