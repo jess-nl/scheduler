@@ -15,7 +15,7 @@ export function useVisualMode(param) {
     }
   };
 
-  /* An issue throughout the process: Originally had 'history.length - 1'. However, based on how my Appointment & Application component files are made, I had to replace it with 'history.length - 2' to get the back functionality work. */
+  /* An issue throughout the process: Originally wrote 'history.length - 1'. However, based on how my Appointment & Application component files are made, I had to replace it with 'history.length - 2' to get the back functionality work. */
 
   const back = () => {
     if (history.length > 1) {

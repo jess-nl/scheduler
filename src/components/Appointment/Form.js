@@ -4,7 +4,7 @@ import "components/Appointment/styles.scss";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
-/* When creating or editing the Form component, the field takes an input for student name and passes as a state. It also verifies whether the field is blank or not. */
+/* When creating or editing the Form, its field takes an input for student name and passes as a state. It also verifies whether the field is blank or not. */
 
 export default function Form(props) {
   const [name, setName] = useState(props.name || "");

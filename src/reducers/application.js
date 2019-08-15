@@ -2,7 +2,7 @@ const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
-/* reducer function updates the state dispatched in the hooks/useApplicationData.js. It also verifies whether an appointment has been created & based on that, it updates "spots remaining" on the sidebar. This function is passed to: hooks/useApplicationData.js */
+/* reducer function updates the state dispatched in the hooks/useApplicationData.js. It also verifies whether an appointment has been created & based on that, it updates "spots remaining" on the sidebar. */
 
 export default function reducer(state, action) {
   const {

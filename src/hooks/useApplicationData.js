@@ -6,7 +6,7 @@ import reducer, {
   SET_INTERVIEW
 } from "reducers/application";
 
-/* useApplicationData function creates API requests to access the database; removes interviews (as null) and edits within a database. It also applies the imported reduce function from reducers/application.js to trigger a state change. */
+/* useApplicationData function creates API requests to access the database; removes interviews (as null) and edits within a database. It also applies the imported reduce function to trigger a state change. */
 
 export function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {

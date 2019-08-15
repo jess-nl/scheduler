@@ -9,7 +9,7 @@ import getAppointmentsForDay, {
   getInterview
 } from "helpers/selectors";
 
-/* Application component receives values from the useApplicationData function in hooks/useApplicationData.js (the API/database) and passes them in the list of appointments. */
+/* Application component receives values from the hooks, available in the imported useApplicationData function, and passes such values in a rendered list of appointments. */
 
 export default function Application() {
   const {
